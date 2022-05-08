@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using FluentAssertions;
 using GameScorer;
+using GameScorer.Config;
 using GameScorer.Exceptions;
 using GameScorer.Interfaces;
 using GameScorer.Parsers;
@@ -19,16 +21,31 @@ public class GameScorerTests
         var expectedOutput = typeof(RoundParser);
 
         gameScorer.Parser.Should().BeOfType(expectedOutput);
+        gameScorer.RulesetCount.Should().Be(11);
     }
     
     [Fact]
-    public void Ctor2_ShouldSetExpectedParser()
+    public void Ctor2_ShouldSetExpectedParserAndRulsets()
     {
         var parser = new TestParser();
-        var gameScorer = new Scorer(parser);
+        var gameScorer = new Scorer(new GameScorerOptions{ RoundParser = parser});
         var expectedOutput = typeof(TestParser);
         
         gameScorer.Parser.Should().BeOfType(expectedOutput);
+        gameScorer.RulesetCount.Should().Be(11);
+    }
+    
+    [Fact]
+    public void Ctor2_ShouldSetProvidedRulsets()
+    {
+        var rulesets = new Dictionary<string, IRuleset>();
+        rulesets.Add("test1", new FullHouseRuleset());
+        rulesets.Add("test2", new FullHouseRuleset());
+        rulesets.Add("test3", new FullHouseRuleset());
+        
+        var gameScorer = new Scorer(new GameScorerOptions{ Rulesets = rulesets });
+
+        gameScorer.RulesetCount.Should().Be(rulesets.Count);
     }
     
     [Fact]
