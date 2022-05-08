@@ -27,7 +27,11 @@ public class CountNumberRuleset : IRuleset
                 Dice = s.Key,
                 Count = s.Count()
             });
+
+        var target = scoreRegister.FirstOrDefault(x => x.Dice == _targetDice);
+
+        if (target is null) return 0;
         
-        return scoreRegister.FirstOrDefault(x => x.Dice == _targetDice).Count * _targetDice;
+        return target.Count * _targetDice;
     }
 }

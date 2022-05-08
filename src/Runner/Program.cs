@@ -5,7 +5,7 @@ using GameScorer.Parsers;
 
 Console.WriteLine("Hello, World!");
 
-var gameScorer = new Scorer(new RegexParser());
+var gameScorer = new Scorer();
 
 gameScorer.PlayRound("(1,1,1,1,1) ones");
 gameScorer.PlayRound("(2,2,2,2,2) twos");

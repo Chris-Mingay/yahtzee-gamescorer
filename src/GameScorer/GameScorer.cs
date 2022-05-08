@@ -1,4 +1,5 @@
-﻿using GameScorer.Exceptions;
+﻿using GameScorer.Config;
+using GameScorer.Exceptions;
 using GameScorer.Interfaces;
 using GameScorer.Parsers;
 using GameScorer.Rulesets;
@@ -18,10 +19,17 @@ public class Scorer
         Parser = new RoundParser();
         SetDefaultRules();
     }
-    public Scorer(IRoundParser parser)
+    public Scorer(GameScorerOptions options)
     {
-        Parser = parser;
-        SetDefaultRules();
+        Parser = options.RoundParser ?? new RoundParser();
+        if (options.Rulesets is not null)
+        {
+            _rulesets = options.Rulesets;
+        }
+        else
+        {
+            SetDefaultRules();
+        }
     }
     
     private void SetDefaultRules()
