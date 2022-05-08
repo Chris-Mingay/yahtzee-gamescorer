@@ -21,13 +21,13 @@ public class CountNumberRuleset : IRuleset
     {
         if (die is null) throw new ArgumentNullException(nameof(die));
 
-        var scoreRegister = new Dictionary<int, int>();
-        foreach (var dice in die)
-        {
-            if (!scoreRegister.ContainsKey(dice)) scoreRegister[dice] = 0;
-            scoreRegister[dice]++;
-        }
-
-        return scoreRegister.FirstOrDefault(x => x.Key == _targetDice).Value * _targetDice;
+        var scoreRegister = die.GroupBy(x => x)
+            .Select(s => new
+            {
+                Dice = s.Key,
+                Count = s.Count()
+            });
+        
+        return scoreRegister.FirstOrDefault(x => x.Dice == _targetDice).Count * _targetDice;
     }
 }

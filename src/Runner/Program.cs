@@ -1,10 +1,11 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
 using GameScorer;
+using GameScorer.Parsers;
 
 Console.WriteLine("Hello, World!");
 
-var gameScorer = new Scorer();
+var gameScorer = new Scorer(new RegexParser());
 
 gameScorer.PlayRound("(1,1,1,1,1) ones");
 gameScorer.PlayRound("(2,2,2,2,2) twos");
