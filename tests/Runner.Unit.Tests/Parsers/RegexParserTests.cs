@@ -10,14 +10,12 @@ namespace Runner.Unit.Tests.Parsers;
 
 public class RegexParserTests
 {
-    
     private RegexParser _sut { get; set; }
 
     public RegexParserTests()
     {
         _sut = new RegexParser();
     }
-    
     
     [Theory]
     [MemberData(nameof(RegexParserTestsData.GoodData), MemberType = typeof(RegexParserTestsData))]

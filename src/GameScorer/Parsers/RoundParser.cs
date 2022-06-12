@@ -3,6 +3,10 @@ using GameScorer.Interfaces;
 
 namespace GameScorer.Parsers;
 
+/// <summary>
+/// A basic string manipulation based parser expecting a format of "(int, int, int, int, int) string" to generate a round with 5 die (ints)
+/// and one ruleset (string)
+/// </summary>
 public class RoundParser : IRoundParser
 {
     public Round Parse(string inputstring)

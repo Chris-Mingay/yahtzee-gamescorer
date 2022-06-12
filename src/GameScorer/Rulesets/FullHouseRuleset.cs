@@ -2,6 +2,13 @@
 
 namespace GameScorer.Rulesets;
 
+/// <summary>
+/// Look for a full house (3 times one dice and 2 times another) and return the total dice value. If the set isn't a full house return 0
+/// </summary>
+/// <example>
+/// (1, 1, 2, 2, 2) is a full house and will return a score of 8 ( 1 + 1 + 2 + 2 + 2 )
+/// (1, 2, 3, 4, 5) is not a full house and will return a score of 0
+/// </example>
 public class FullHouseRuleset : IRuleset
 {
     public int CalculateScore(int[] die)

@@ -6,6 +6,9 @@ using GameScorer.Rulesets;
 
 namespace GameScorer;
 
+/// <summary>
+/// A Yahtzee game scorer.
+/// </summary>
 public class Scorer
 {
     public IRoundParser Parser { get; private set; }
@@ -14,11 +17,19 @@ public class Scorer
     public int TotalScore { get; private set; }
     public int RulesetCount => _rulesets.Count();
 
+    /// <summary>
+    /// Generate a scorer with the default ruleset and parser
+    /// </summary>
     public Scorer()
     {
         Parser = new RoundParser();
         SetDefaultRules();
     }
+    
+    /// <summary>
+    /// Generate a scorer with the provided GameOptions
+    /// </summary>
+    /// <param name="options">An options set to be used, any properties not defined will revert to the defaults.</param>
     public Scorer(GameScorerOptions options)
     {
         Parser = options.RoundParser ?? new RoundParser();
@@ -48,11 +59,20 @@ public class Scorer
         _rulesets.Add("fullhouse", new FullHouseRuleset());
     }
 
+    /// <summary>
+    /// Clear the current ruleset configuration
+    /// </summary>
     public void ClearRulesets()
     {
         _rulesets.Clear();
     }
 
+    /// <summary>
+    /// Add a ruleset to this GameScorer
+    /// </summary>
+    /// <param name="rulesetName">A unique ruleset name</param>
+    /// <param name="ruleset">An IRuleset implementation</param>
+    /// <exception cref="ArgumentNullException">Thrown if neither arguement is provided</exception>
     public void AddRuleset(string rulesetName, IRuleset ruleset)
     {
         if (string.IsNullOrEmpty(rulesetName)) throw new ArgumentNullException(nameof(rulesetName));
@@ -60,6 +80,12 @@ public class Scorer
         _rulesets[rulesetName] = ruleset ?? throw new ArgumentNullException(nameof(ruleset));
     }
 
+    /// <summary>
+    /// Removes a ruleset from the GameScorer by name
+    /// </summary>
+    /// <param name="rulesetName">The name of the ruleset to be removed</param>
+    /// <exception cref="ArgumentNullException">Thrown if rulesetName not provided</exception>
+    /// <exception cref="RulesetNotFoundException">Thrown if rulesetName not present in ruleset</exception>
     public void RemoveRuleset(string rulesetName)
     {
         if (string.IsNullOrEmpty(rulesetName)) throw new ArgumentNullException(nameof(rulesetName));
@@ -68,6 +94,13 @@ public class Scorer
         _rulesets.Remove(rulesetName);
     }
 
+    /// <summary>
+    /// Returns a ruleset from the provided name
+    /// </summary>
+    /// <param name="rulesetName">The name of the ruleset to return</param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentNullException">Thrown if rulesetName is not provided</exception>
+    /// <exception cref="RulesetNotFoundException">Thrown if rulesetName not present in ruleset</exception>
     public IRuleset GetRuleset(string rulesetName)
     {
         if (string.IsNullOrEmpty(rulesetName)) throw new ArgumentNullException(nameof(rulesetName));
@@ -76,10 +109,18 @@ public class Scorer
         return _rulesets[rulesetName];
     }
 
-    public void PlayRound(string inputString)
+    /// <summary>
+    /// Play a round using the provided input string
+    /// </summary>
+    /// <param name="inputString">The round in string format that must honour the requirement of the Parser</param>
+    /// <returns>The score of this round</returns>
+    /// <exception cref="RulesetNotFoundException">Thrown if the the specified ruleset is not known to this GameScorer instance</exception>
+    public int PlayRound(string inputString)
     {
         var round = Parser.Parse(inputString);
         if (!_rulesets.ContainsKey(round.Ruleset)) throw new RulesetNotFoundException($"Ruleset: {round.Ruleset} not found");
-        TotalScore += _rulesets[round.Ruleset].CalculateScore(round.Die);
+        var score = _rulesets[round.Ruleset].CalculateScore(round.Die);
+        TotalScore += score;
+        return score;
     }
 }

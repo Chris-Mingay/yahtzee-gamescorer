@@ -4,11 +4,12 @@ using GameScorer.Interfaces;
 
 namespace GameScorer.Parsers;
 
+/// <summary>
+/// A regex based parser expecting a format of "(int, int, int, int, int) string" to generate a round with 5 die (ints)
+/// and one ruleset (string)
+/// </summary>
 public class RegexParser : IRoundParser
 {
-    
-    
-    
     public Round Parse(string inputstring)
     {
 

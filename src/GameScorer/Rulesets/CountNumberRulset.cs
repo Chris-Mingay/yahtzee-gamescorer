@@ -2,10 +2,15 @@
 
 namespace GameScorer.Rulesets;
 
+/// <summary>
+/// Count how many of the provided target dice exist in the roll multiplied by the target dice value.
+/// </summary>
+/// <example>
+/// A target dice of 6 calculated against a set of die (1,5,6,2,6) will return a score of 12 (6 * 2).
+/// </example>
 public class CountNumberRuleset : IRuleset
 {
     private int _targetDice { get; set; }
-
 
     public CountNumberRuleset(int targetDice)
     {

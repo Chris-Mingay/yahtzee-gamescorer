@@ -18,7 +18,6 @@ public class RoundParserTests
         _sut = new RoundParser();
     }
     
-    
     [Theory]
     [MemberData(nameof(RoundParserTestsData.GoodData), MemberType = typeof(RoundParserTestsData))]
     public void Parse_ShouldReturnExpectedRound_WhenInputDataIsValid(string inputString, Round expectedOutput)
