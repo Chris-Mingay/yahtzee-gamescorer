@@ -9,7 +9,7 @@ using GameScorer.Parsers;
 using GameScorer.Rulesets;
 using Xunit;
 
-namespace Runner.Unit.Tests;
+namespace GameScorer.Unit.Tests;
 
 public class GameScorerTests
 {

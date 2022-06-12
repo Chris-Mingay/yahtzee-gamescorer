@@ -6,7 +6,7 @@ using GameScorer.Exceptions;
 using GameScorer.Parsers;
 using Xunit;
 
-namespace Runner.Unit.Tests.Parsers;
+namespace GameScorer.Unit.Tests.Parsers;
 
 public class RoundParserTests
 {

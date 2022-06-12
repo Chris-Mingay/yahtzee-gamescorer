@@ -2,7 +2,7 @@
 using GameScorer.Rulesets;
 using Xunit;
 
-namespace Runner.Unit.Tests.Rulesets;
+namespace GameScorer.Unit.Tests.Rulesets;
 
 public class OfAKindRulsetTests
 {

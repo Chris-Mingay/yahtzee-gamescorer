@@ -15,7 +15,7 @@ public class Scorer
 
     private Dictionary<string, IRuleset> _rulesets { get; set; }
     public int TotalScore { get; private set; }
-    public int RulesetCount => _rulesets.Count();
+    public int RulesetCount => _rulesets?.Count() ?? 0;
 
     /// <summary>
     /// Generate a scorer with the default ruleset and parser
