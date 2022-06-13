@@ -18,6 +18,7 @@ public static class DependencyInjection
                     services.AddDbContext<ApplicationDbContext, InMemoryApplicationDbContext>();
                     break;
                 case "Sqlite":
+                    
                     services.AddDbContext<ApplicationDbContext, SqliteApplicationDbContext>();
                     break;
                 default:
@@ -43,7 +44,7 @@ public static class DependencyInjection
             }
 
             services.AddTransient<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
-
+            
             return services;
         }
     

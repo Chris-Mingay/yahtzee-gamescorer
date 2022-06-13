@@ -26,7 +26,7 @@ switch ($Context) {
                 Write-Host
                 Write-Host "Generating migration for $i context"
                 Write-Host
-                $Command = dotnet ef migrations add $Name --startup-project src/BlazorWebUI/BlazorWebUI.csproj --project src/Infrastructure/Infrastructure.csproj --context "$($i)ApplicationDbContext"
+                $Command = dotnet ef migrations add $Name --startup-project src/WebApi/WebApi.csproj --project src/Infrastructure/Infrastructure.csproj --context "$($i)ApplicationDbContext"
                 Write-Output $Command
                 Write-Host
             }
@@ -37,7 +37,7 @@ switch ($Context) {
         Write-Host
         Write-Host "Generating migration for $Context context"
         Write-Host
-        $Command = dotnet ef migrations add $Name --startup-project src/BlazorWebUI/BlazorWebUI.csproj --project src/Infrastructure/Infrastructure.csproj --context "$($Context)ApplicationDbContext"
+        $Command = dotnet ef migrations add $Name --startup-project src/WebApi/WebApi.csproj --project src/Infrastructure/Infrastructure.csproj --context "$($Context)ApplicationDbContext"
         Write-Output $Command
         Write-Host
     }

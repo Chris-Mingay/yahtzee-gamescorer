@@ -5,6 +5,7 @@ using Infrastructure;
 using Infrastructure.Data;
 using Infrastructure.Persistence;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using WebApi.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -31,6 +32,12 @@ var app = builder.Build();
 using(var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+
+    if (!dbContext.Database.IsInMemory())
+    {
+        dbContext.Database.Migrate();
+    }
+
     DataSeeder.SeedDatabase(dbContext);
 }
 
@@ -75,11 +82,6 @@ else
 }
 Console.WriteLine("");
 
-
-
 app.Run();
-
-
-
 
 public partial class Program { }

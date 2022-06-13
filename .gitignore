@@ -398,3 +398,8 @@ FodyWeavers.xsd
 *.sln.iml
 
 .idea
+
+# Sqlite databases
+**/*.db
+**/*.db-shm
+**/*.db-wal
