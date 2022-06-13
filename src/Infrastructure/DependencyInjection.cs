@@ -1,5 +1,5 @@
-﻿using Application.Interfaces;
-using Infrastructure.Data;
+﻿using Application.Emails;
+using Application.Interfaces;
 using Infrastructure.Persistence;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,6 +19,24 @@ public static class DependencyInjection
                     break;
                 default:
                     throw new Exception("Invalid DatabaseProvider specified in appsettings");
+            }
+            
+            switch (configuration.GetValue<string>("EmailProvider"))
+            {
+                case "Smtp":
+                    services.AddScoped<IEmailerService, SmtpEmailService>();
+                    services.Configure<SmtpConfiguration>(configuration.GetSection("SmtpConfiguration"));
+                    break;
+                case "SendGrid":
+                    services.AddScoped<IEmailerService, SendGridEmailService>();
+                    services.Configure<SendGridConfiguration>(configuration.GetSection("SendGridConfiguration"));
+                    break;
+                case "Mock":
+                    services.AddScoped<IEmailerService, MockEmailerService>();
+                    break;
+                default:
+                    throw new Exception("appsettings.json EmailProvider must be set. Use 'Mock' to send emails to console log");
+
             }
 
             services.AddTransient<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
