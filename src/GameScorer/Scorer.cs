@@ -95,6 +95,15 @@ public class Scorer
     }
 
     /// <summary>
+    /// Get the names of each ruleset
+    /// </summary>
+    /// <returns>A list of ruleset names</returns>
+    public List<string> GetRulesets()
+    {
+        return _rulesets.Keys.ToList();
+    }
+
+    /// <summary>
     /// Returns a ruleset from the provided name
     /// </summary>
     /// <param name="rulesetName">The name of the ruleset to return</param>

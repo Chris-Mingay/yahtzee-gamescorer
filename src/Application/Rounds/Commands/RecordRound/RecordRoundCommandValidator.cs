@@ -19,7 +19,7 @@ public class RecordRoundCommandValidator : AbstractValidator<RecordRoundCommand>
             {
                 try
                 {
-                    var gameScorer = new Scorer();
+                    var gameScorer = new GameScorer.Scorer();
                     gameScorer.PlayRound(inputString);
                     return true;
                 }

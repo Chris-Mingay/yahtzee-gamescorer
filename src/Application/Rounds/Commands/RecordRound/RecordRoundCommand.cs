@@ -24,7 +24,7 @@ public class RecordRoundCommandHandler : IRequestHandler<RecordRoundCommand, Rou
     public async Task<RoundDto> Handle(RecordRoundCommand command, CancellationToken cancellationToken)
     {
 
-        var scorer = new Scorer();
+        var scorer = new GameScorer.Scorer();
         var gameRound = scorer.ParseRound(command.InputString);
 
         var round = new Round()
