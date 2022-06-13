@@ -1,0 +1,122 @@
+﻿@code {
+
+    private int _value;
+    [Parameter]
+    public int Value
+    {
+        get => _value;
+        set
+        {
+            if (value == _value) return;
+            _value = value;
+            ValueChanged.InvokeAsync(value);
+            if (OnChanged.HasDelegate)
+            {
+                OnChanged.InvokeAsync();
+            }
+        }
+    }
+
+    [Parameter] public EventCallback<int> ValueChanged { get; set; }
+    [Parameter] public EventCallback<int> OnChanged { get; set; }
+
+    void onClickUp()
+    {
+        Value++;
+        if (Value > 6) Value = 1;
+    }
+
+    void onClickDown()
+    {
+        Value--;
+        if (Value < 1) Value = 6;
+    }
+
+    void onClickDice()
+    {
+        var rnd = new Random();
+        Value = rnd.Next(1,7);
+    }
+
+}
+
+<div class="flex flex-col gap-1">
+    <button type="button" @onclick=onClickUp class="p-2 font-bold text-gray-400 flex-0 rounded-xl border up-button bg-white">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mx-auto" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clip-rule="evenodd" />
+        </svg>
+    </button>
+    <div class="dice w-24 h-24 flex flex-col border rounded-xl shadow border-gray-400 p-4">
+        
+        <div @onclick=onClickDice class="flex-1 flex items-center justify-center flex-col justify-around">
+            @switch (Value)
+            {
+                case 1:
+                    <div class="w-2 h-2 rounded-full bg-black"></div>
+                    break;
+                case 2:
+                    <div class="">
+                        <div class="w-2 h-2 rounded-full bg-black"></div>    
+                    </div>
+                    <div class="">
+                        <div class="w-2 h-2 rounded-full bg-black"></div>    
+                    </div>
+                    
+                    break;
+                case 3:
+                    <div class="justify-start w-full flex">
+                        <div class="w-2 h-2 rounded-full bg-black"></div>    
+                    </div>
+                    <div>
+                        <div class="w-2 h-2 rounded-full bg-black"></div>    
+                    </div>
+                    <div class="justify-end w-full flex">
+                        <div class="w-2 h-2 rounded-full bg-black"></div>    
+                    </div>
+                    break;
+                case 4:
+                    <div class="flex-1 flex justify-between w-full">
+                        <div class="w-2 h-2 rounded-full bg-black"></div>
+                        <div class="w-2 h-2 rounded-full bg-black"></div>
+                    </div>
+                    <div class="flex-1 flex justify-between w-full items-end">
+                        <div class="w-2 h-2 rounded-full bg-black"></div>
+                        <div class="w-2 h-2 rounded-full bg-black"></div>    
+                    </div>
+                    break;
+                case 5:
+                    <div class="flex-1 flex justify-between w-full">
+                        <div class="w-2 h-2 rounded-full bg-black"></div>
+                        <div class="w-2 h-2 rounded-full bg-black"></div>
+                    </div>
+                    <div>
+                        <div class="w-2 h-2 rounded-full bg-black"></div>    
+                    </div>
+                    <div class="flex-1 flex justify-between w-full items-end">
+                        <div class="w-2 h-2 rounded-full bg-black"></div>
+                        <div class="w-2 h-2 rounded-full bg-black"></div>    
+                    </div>
+                    break;
+                case 6:
+                    <div class="flex-1 flex justify-between w-full">
+                        <div class="w-2 h-2 rounded-full bg-black"></div>
+                        <div class="w-2 h-2 rounded-full bg-black"></div>
+                    </div>
+                    <div class="flex-1 flex justify-between w-full items-center">
+                        <div class="w-2 h-2 rounded-full bg-black"></div>
+                        <div class="w-2 h-2 rounded-full bg-black"></div>
+                    </div>
+                    <div class="flex-1 flex justify-between w-full items-end">
+                        <div class="w-2 h-2 rounded-full bg-black"></div>
+                        <div class="w-2 h-2 rounded-full bg-black"></div>    
+                    </div>
+                    break;
+            }
+        </div>
+    </div>
+    <button type="button" @onclick=onClickDown class="p-2 font-bold text-gray-400 flex-0 rounded-xl border down-button bg-white">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mx-auto" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+        </svg>
+    </button>
+</div>

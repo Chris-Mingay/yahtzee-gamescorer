@@ -1,0 +1,107 @@
+﻿@using Application.Scorer.Queries.GetRulesets
+@using Application.Scorer.Queries.GetScore
+@using Application.Exceptions
+@inject MediatR.IMediator Mediator
+
+@code {
+
+    DiceData[] _dieValues = new[]
+    {
+        new DiceData(0, 1),
+        new DiceData(1, 1),
+        new DiceData(2, 1),
+        new DiceData(3, 1),
+        new DiceData(4, 1),
+    };
+
+    List<string>? Rulesets { get; set; }
+    
+    
+    int Score { get; set; } = 0;
+    
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            Rulesets = await Mediator.Send(new GetRulesetsQuery());
+            StateHasChanged();
+        }
+    }
+
+    private void DiceHasChanged()
+    {
+        CalculateScore();
+    }
+
+    private string _selectedRuleset;
+
+    string SelectedRuleset
+    {
+        get => _selectedRuleset;
+        set
+        {
+            if (value == _selectedRuleset) return;
+            _selectedRuleset = value;
+            RulesetHasChanged();
+        }
+    }
+    
+    private void RulesetHasChanged()
+    {
+        CalculateScore();
+    }
+
+    private async Task CalculateScore()
+    {
+
+        if (SelectedRuleset is null) return;
+
+        try
+        {
+            var query = new GetScoreQuery()
+            {
+                InputString = $"({string.Join(", ", _dieValues.Select(x => x.Value))}) {SelectedRuleset}"
+            };
+            Score = await Mediator.Send(query);
+        }
+        catch (ValidationException ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+        
+    }
+
+}
+
+
+<div class="flex gap-2">
+    <div class="flex-1 gap-2 items-start flex">
+        @foreach (var diceData in _dieValues)
+        {
+            <Dice @bind-Value=diceData.Value
+                  OnChanged=DiceHasChanged/>
+        }    
+    </div>
+    <div class="flex-1 flex px-8 flex-col">
+        @if (Rulesets is not null)
+        {
+            <p class="font-semibold text-gray-600 text-sm mb-2 w-full">
+                Select a ruleset below to determine a score for these die.
+            </p>
+            <select @bind=SelectedRuleset
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                <option value="">Please select a ruleset</option>
+                @foreach(var ruleset in Rulesets)
+                {
+                    <option value="@ruleset">@ruleset</option>
+                }
+            </select>
+            
+            <p class="font-semibold text-blue-600 text-2xl mb-2 text-right mt-2 w-full">
+                Score: @Score
+            </p>
+            
+                         
+        }
+    </div>
+</div>
