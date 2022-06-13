@@ -1,8 +1,5 @@
 using Application;
 using Infrastructure;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
-using WebBlazor.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,7 +9,6 @@ builder.Services.AddInfrastructure(builder.Configuration);
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddSingleton<WeatherForecastService>();
 
 var app = builder.Build();
 
