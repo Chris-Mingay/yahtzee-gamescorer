@@ -1,5 +1,5 @@
+using System.Reflection;
 using Application;
-using Domain.Entities;
 using FluentValidation.AspNetCore;
 using Infrastructure;
 using Infrastructure.Data;
@@ -17,7 +17,13 @@ builder.Services.AddControllersWithViews(options =>
     .AddFluentValidation();
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.CustomSchemaIds( type => type.ToString() );
+    
+    var filePath = Path.Combine(AppContext.BaseDirectory, $"{typeof(Program).GetTypeInfo().Assembly.GetName().Name}.xml");
+    options.IncludeXmlComments(filePath);
+});
 
 var app = builder.Build();
 
@@ -40,6 +46,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+app.UseStaticFiles();
 
 app.Run();
 

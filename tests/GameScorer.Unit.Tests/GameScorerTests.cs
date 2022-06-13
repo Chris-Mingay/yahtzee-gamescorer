@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using FluentAssertions;
-using GameScorer;
 using GameScorer.Config;
 using GameScorer.Exceptions;
 using GameScorer.Interfaces;
@@ -25,7 +24,7 @@ public class GameScorerTests
     }
     
     [Fact]
-    public void Ctor2_ShouldSetExpectedParserAndRulsets()
+    public void Ctor2_ShouldSetExpectedParserAndRuleSets()
     {
         var parser = new TestParser();
         var gameScorer = new Scorer(new GameScorerOptions{ RoundParser = parser});
@@ -36,16 +35,16 @@ public class GameScorerTests
     }
     
     [Fact]
-    public void Ctor2_ShouldSetProvidedRulsets()
+    public void Ctor2_ShouldSetProvidedRuleSets()
     {
-        var rulesets = new Dictionary<string, IRuleset>();
-        rulesets.Add("test1", new FullHouseRuleset());
-        rulesets.Add("test2", new FullHouseRuleset());
-        rulesets.Add("test3", new FullHouseRuleset());
+        var ruleSets = new Dictionary<string, IRuleset>();
+        ruleSets.Add("test1", new FullHouseRuleset());
+        ruleSets.Add("test2", new FullHouseRuleset());
+        ruleSets.Add("test3", new FullHouseRuleset());
         
-        var gameScorer = new Scorer(new GameScorerOptions{ Rulesets = rulesets });
+        var gameScorer = new Scorer(new GameScorerOptions{ Rulesets = ruleSets });
 
-        gameScorer.RulesetCount.Should().Be(rulesets.Count);
+        gameScorer.RulesetCount.Should().Be(ruleSets.Count);
     }
     
     [Fact]
@@ -168,8 +167,8 @@ public class GameScorerTests
 
 public class TestParser : IRoundParser
 {
-    public Round Parse(string inputstring)
+    public Round Parse(string inputString)
     {
-        throw new NotImplementedException();
+        throw new NotImplementedException("Used for unit test purposes only");
     }
 }

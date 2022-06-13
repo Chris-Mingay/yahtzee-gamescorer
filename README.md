@@ -14,6 +14,7 @@ This is by no means a finished project but is used to demonstrate my methodology
 - Blazor Server (with some very minor TailwindCSS)
 - Integration and Unit tests
 - Separation of concern via Event Handling
+- Interface based system definitions
 
 ## TODO
 

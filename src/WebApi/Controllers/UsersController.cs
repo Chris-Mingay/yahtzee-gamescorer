@@ -18,6 +18,10 @@ public class UsersController : Controller
         _mediator = mediator;
     }
     
+    /// <summary>
+    /// Returns an array of all users in the system
+    /// </summary>
+    /// <returns></returns>
     [HttpGet(Name = "GetUsers")]
     public async Task<ActionResult<List<UserDto>>> GetUsers()
     {
@@ -26,6 +30,11 @@ public class UsersController : Controller
         return Ok(response);
     }
 
+    /// <summary>
+    /// Gets the specified user including all associated round data
+    /// </summary>
+    /// <param name="id">The user ID</param>
+    /// <returns></returns>
     [HttpGet("{id}", Name = "GetUser")]
     public async Task<ActionResult<Application.Users.Queries.GetUser.UserDto>> GetUser(Guid id)
     {
@@ -37,6 +46,11 @@ public class UsersController : Controller
         return response is not null ? Ok(response) : BadRequest($"User '{id}' not found");
     }
 
+    /// <summary>
+    /// Create a new user
+    /// </summary>
+    /// <param name="command"></param>
+    /// <returns>Ok(UserDto) if successful or BadRequest()</returns>
     [HttpPost(Name = "CreateUser")]
     public async Task<ActionResult<UserDto>> CreateUser([FromBody] CreateUserCommand command)
     {

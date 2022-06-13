@@ -16,6 +16,11 @@ public class RoundsController : Controller
         _mediator = mediator;
     }
     
+    /// <summary>
+    /// Record a round
+    /// </summary>
+    /// <param name="command"></param>
+    /// <returns>Ok(RoundDto) if successful or BadRequest()</returns>
     [HttpPost(Name = "RecordRound")]
     public async Task<ActionResult<RoundDto>> RecordRound([FromBody] RecordRoundCommand command)
     {

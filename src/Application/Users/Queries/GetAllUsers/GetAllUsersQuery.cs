@@ -4,6 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Application.Users.Queries.GetAllUsers;
 
+/// <summary>
+/// Returns all users in the system
+/// </summary>
 public class GetAllUsersQuery : IRequest<List<UserDto>>
 {
     

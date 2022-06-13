@@ -4,6 +4,10 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace WebApi.Filters;
 
+/// <summary>
+/// A filter to intercept know exceptions and present the details in a more easily consumed data format.
+/// TODO - Consider using OneOf<,> instead
+/// </summary>
 public class ApiExceptionFilterAttribute : ExceptionFilterAttribute
     {
 

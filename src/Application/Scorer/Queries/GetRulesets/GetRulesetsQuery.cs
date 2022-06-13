@@ -2,6 +2,9 @@
 
 namespace Application.Scorer.Queries.GetRulesets;
 
+/// <summary>
+/// Return a list of all rulesets in this current build
+/// </summary>
 public class GetRulesetsQuery : IRequest<List<string>>
 {
     

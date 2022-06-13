@@ -1,8 +1,11 @@
 ﻿@code {
 
     private int _value;
-    [Parameter]
-    public int Value
+    
+    /// <summary>
+    /// Bindable value of this dice
+    /// </summary>
+    [Parameter] public int Value
     {
         get => _value;
         set
@@ -17,7 +20,14 @@
         }
     }
 
+    /// <summary>
+    /// Blazor binding to trigger update of bound value
+    /// </summary>
     [Parameter] public EventCallback<int> ValueChanged { get; set; }
+    
+    /// <summary>
+    /// Callback event when the dice value is changed, returns the new value
+    /// </summary>
     [Parameter] public EventCallback<int> OnChanged { get; set; }
 
     void onClickUp()

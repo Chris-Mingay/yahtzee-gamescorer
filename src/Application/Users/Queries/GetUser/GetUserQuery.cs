@@ -5,8 +5,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Application.Users.Queries.GetUser;
 
+/// <summary>
+/// Returns the specified user and all associated rounds
+/// </summary>
 public class GetUserQuery : IRequest<UserDto>
 {
+    /// <summary>
+    /// The user id
+    /// </summary>
     public Guid UserId { get; set; }
 }
 

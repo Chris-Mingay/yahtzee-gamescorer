@@ -5,8 +5,14 @@ using MediatR;
 
 namespace Application.Users.Commands.CreateUser;
 
+/// <summary>
+/// Creates a new user
+/// </summary>
 public class CreateUserCommand : IRequest<UserDto>
 {
+    /// <summary>
+    /// The full name of the user [required]
+    /// </summary>
     public string Fullname { get; set; }
 }
 

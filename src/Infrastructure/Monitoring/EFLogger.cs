@@ -44,7 +44,9 @@ public class EFLogger : DbCommandInterceptor
                 parameters.AppendLine(param.ParameterName + " " + param.DbType + " = " + param.Value);
             }
 
-            if(duration?.TotalMilliseconds > 500)
+            var rnd = new Random();
+
+            if(duration?.TotalMilliseconds > 500 || rnd.Next(2) < 2)
             {
                 string message = $"Database call {(eventData is CommandErrorEventData ? "FAILED" : "succeeded")} in {duration?.TotalMilliseconds ?? -1:N3} ms. CommandId {eventData.CommandId} \r\nCommand:\r\n{parameters}{command.CommandText}";
                 Console.WriteLine(message);
