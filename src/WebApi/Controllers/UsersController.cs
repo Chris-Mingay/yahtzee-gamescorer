@@ -1,4 +1,5 @@
-﻿using Application.Users.Queries.GetAllUsers;
+﻿using Application.Users.Commands.CreateUser;
+using Application.Users.Queries.GetAllUsers;
 using Application.Users.Queries.GetUser;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -26,7 +27,7 @@ public class UsersController : Controller
     }
 
     [HttpGet("{id}", Name = "GetUser")]
-    public async Task<ActionResult<UserDto>> GetUser(Guid id)
+    public async Task<ActionResult<Application.Users.Queries.GetUser.UserDto>> GetUser(Guid id)
     {
         var query = new GetUserQuery
         {
@@ -34,5 +35,12 @@ public class UsersController : Controller
         };
         var response = await _mediator.Send(query);
         return response is not null ? Ok(response) : BadRequest($"User '{id}' not found");
+    }
+
+    [HttpPost(Name = "CreateUser")]
+    public async Task<ActionResult<UserDto>> CreateUser([FromBody] CreateUserCommand command)
+    {
+        var response = await _mediator.Send(command);
+        return response is not null ? Ok(response) : BadRequest("Could not create user");
     }
 }
