@@ -15,10 +15,11 @@ This is by no means a finished project but is used to demonstrate my methodology
 - Integration and Unit tests
 - Separation of concern via Event Handling
 - Interface based system definitions
+- Github Actions
 
 ## TODO
 
 - Event handling example
 - Multiple EF providers example
 - System configuration example (interface for sending text messages)
-
+- Github Actions

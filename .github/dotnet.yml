@@ -1,0 +1,30 @@
+name: .NET
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup .NET Core SDK
+        uses: actions/setup-dotnet@v1.8.1
+        with:
+          dotnet-version: 6.0.x
+          include-prerelease: false
+          
+      - name: Restore .NET Core Project
+        run: dotnet restore ./src/WebApi/WebApi.csproj
+
+      - name: Build .NET Core Project
+        run: dotnet build --no-restore ./src/WebApi/WebApi.csproj
+
+      - name: Test .NET Core Project
+        run: dotnet test
