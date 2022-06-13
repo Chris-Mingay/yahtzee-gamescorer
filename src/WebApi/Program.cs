@@ -4,6 +4,7 @@ using FluentValidation.AspNetCore;
 using Infrastructure;
 using Infrastructure.Data;
 using Infrastructure.Persistence;
+using MediatR;
 using WebApi.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -48,6 +49,37 @@ app.UseAuthorization();
 app.MapControllers();
 app.UseStaticFiles();
 
+Console.WriteLine("Active Notifications:");
+List<Type> notifications = AppDomain.CurrentDomain.GetAssemblies()
+    .SelectMany(x => x.GetTypes())
+    .Where(x => typeof(INotification).IsAssignableFrom(x) && !x.IsInterface && !x.IsAbstract)
+    .ToList();
+if (!notifications.Any()) Console.WriteLine("None");
+else
+{
+    foreach (var notification in notifications)
+    {
+        Console.WriteLine(notification.Name);
+    }
+}
+Console.WriteLine("");
+
+Console.WriteLine("Active Notification Handlers:");
+List<string> notificationHandlers = AppDomain.CurrentDomain.GetAssemblies().SelectMany(x => x.GetTypes())
+    .Where(x => x.GetInterface(typeof(INotificationHandler<>).Name) is not null && !x.IsInterface && !x.IsAbstract)
+    .Select(x => x.Name).ToList();
+if (!notificationHandlers.Any()) Console.WriteLine("None");
+else
+{
+    foreach (var type in notificationHandlers) Console.WriteLine(type);
+}
+Console.WriteLine("");
+
+
+
 app.Run();
+
+
+
 
 public partial class Program { }
