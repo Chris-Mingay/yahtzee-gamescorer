@@ -1,4 +1,5 @@
 ﻿using Application.Interfaces;
+using Application.Rounds.Events;
 using Application.Users.Queries.GetUser;
 using GameScorer;
 using MediatR;
@@ -24,10 +25,12 @@ public class RecordRoundCommand : IRequest<RoundDto>
 public class RecordRoundCommandHandler : IRequestHandler<RecordRoundCommand, RoundDto>
 {
     private readonly IApplicationDbContext _applicationDbContext;
+    private readonly IMediator _mediator;
 
-    public RecordRoundCommandHandler(IApplicationDbContext applicationDbContext)
+    public RecordRoundCommandHandler(IApplicationDbContext applicationDbContext, IMediator mediator)
     {
         _applicationDbContext = applicationDbContext;
+        _mediator = mediator;
     }
     
     public async Task<RoundDto> Handle(RecordRoundCommand command, CancellationToken cancellationToken)
@@ -45,8 +48,13 @@ public class RecordRoundCommandHandler : IRequestHandler<RecordRoundCommand, Rou
             Score = gameRound.Score
         };
 
-        await _applicationDbContext.Rounds.AddAsync(round);
+        await _applicationDbContext.Rounds.AddAsync(round, cancellationToken);
         await _applicationDbContext.SaveChangesAsync(cancellationToken);
+
+        if (round.Score == 30)
+        {
+            await _mediator.Publish(new MaxScoreEvent(round.Id), cancellationToken);
+        }
 
         return new RoundDto()
         {

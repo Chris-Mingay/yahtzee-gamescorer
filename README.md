@@ -22,4 +22,3 @@ This is by no means a finished project but is used to demonstrate my methodology
 - Event handling example
 - Multiple EF providers example
 - System configuration example (interface for sending text messages)
-- Github Actions
