@@ -17,8 +17,4 @@ This is by no means a finished project but is used to demonstrate my methodology
 - Interface based system definitions
 - Github Actions
 - System configuration example (interface for sending emails)
-
-## TODO
-
 - Multiple EF providers example
-
