@@ -20,7 +20,7 @@ public class TwoPairRuleset : IRuleset
                 Count = s.Count() 
             });
 
-        var matches = scoreRegister.Where(x => x.Count == 2);
+        var matches = scoreRegister.Where(x => x.Count == 14);
 
         if (matches.Count() != 2) return 0;
         
