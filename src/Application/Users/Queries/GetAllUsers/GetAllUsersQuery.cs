@@ -18,9 +18,9 @@ public class GetAllUsersQueryHandler : IRequestHandler<GetAllUsersQuery, List<Us
         _applicationDbContext = applicationDbContext;
     }
     
-    public Task<List<UserDto>> Handle(GetAllUsersQuery request, CancellationToken cancellationToken)
+    public async Task<List<UserDto>> Handle(GetAllUsersQuery request, CancellationToken cancellationToken)
     {
-        return _applicationDbContext.Users.Select(x => new UserDto()
+        var users = await _applicationDbContext.Users.Select(x => new UserDto()
         {
             Id = x.Id,
             Name = x.Name,
@@ -28,5 +28,8 @@ public class GetAllUsersQueryHandler : IRequestHandler<GetAllUsersQuery, List<Us
             RoundCount = x.Rounds.Count,
             TotalScore = x.Rounds.Sum(y => y.Score)
         }).ToListAsync(cancellationToken);
+
+        return users;
+
     }
 }

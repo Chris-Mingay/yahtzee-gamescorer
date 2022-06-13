@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Application.Exceptions;
 using Application.Users.Commands.CreateUser;
 using Domain.Entities;
@@ -9,6 +10,7 @@ namespace Application.Integration.Tests.Users.Commands;
 
 using static Testing;
 
+[Collection("Sequential")]
 public class CreateUserCommandTests
 {
 
@@ -34,6 +36,7 @@ public class CreateUserCommandTests
         var response = await SendAsync(command);
         var actual = await FindAsync<User>(response.Id);
 
+        Console.WriteLine(response.Id);
         actual.Name.Should().Be(command.Fullname);
 
     }

@@ -11,11 +11,14 @@ namespace Application.Integration.Tests.Rounds.Commands;
 
 using static Testing;
 
+[Collection("Sequential")]
 public class RecordRoundCommandTests
 {
     [Fact]
     public async Task Should_ThrowException_WhenDetailsAreNotValid()
     {
+        
+        await ClearAsync();
 
         var command = new RecordRoundCommand();
 
@@ -47,6 +50,8 @@ public class RecordRoundCommandTests
     [Fact]
     public async Task Should_CreateRound_WhenDetailsAreValid()
     {
+
+        await ClearAsync();
         
         var user = new User()
         {

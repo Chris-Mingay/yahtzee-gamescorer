@@ -48,67 +48,67 @@
     </button>
     <div class="dice w-24 h-24 flex flex-col border rounded-xl shadow border-gray-400 p-4">
         
-        <div @onclick=onClickDice class="flex-1 flex items-center justify-center flex-col justify-around">
+        <div @onclick=onClickDice class="flex-1 flex items-center justify-center flex-col justify-around dice-button">
             @switch (Value)
             {
                 case 1:
-                    <div class="w-2 h-2 rounded-full bg-black"></div>
+                    <div class="w-2 h-2 rounded-full bg-black dot"></div>
                     break;
                 case 2:
                     <div class="">
-                        <div class="w-2 h-2 rounded-full bg-black"></div>    
+                        <div class="w-2 h-2 rounded-full bg-black dot"></div>    
                     </div>
                     <div class="">
-                        <div class="w-2 h-2 rounded-full bg-black"></div>    
+                        <div class="w-2 h-2 rounded-full bg-black dot"></div>    
                     </div>
                     
                     break;
                 case 3:
                     <div class="justify-start w-full flex">
-                        <div class="w-2 h-2 rounded-full bg-black"></div>    
+                        <div class="w-2 h-2 rounded-full bg-black dot"></div>    
                     </div>
                     <div>
-                        <div class="w-2 h-2 rounded-full bg-black"></div>    
+                        <div class="w-2 h-2 rounded-full bg-black dot"></div>    
                     </div>
                     <div class="justify-end w-full flex">
-                        <div class="w-2 h-2 rounded-full bg-black"></div>    
+                        <div class="w-2 h-2 rounded-full bg-black dot"></div>    
                     </div>
                     break;
                 case 4:
                     <div class="flex-1 flex justify-between w-full">
-                        <div class="w-2 h-2 rounded-full bg-black"></div>
-                        <div class="w-2 h-2 rounded-full bg-black"></div>
+                        <div class="w-2 h-2 rounded-full bg-black dot"></div>
+                        <div class="w-2 h-2 rounded-full bg-black dot"></div>
                     </div>
                     <div class="flex-1 flex justify-between w-full items-end">
-                        <div class="w-2 h-2 rounded-full bg-black"></div>
-                        <div class="w-2 h-2 rounded-full bg-black"></div>    
+                        <div class="w-2 h-2 rounded-full bg-black dot"></div>
+                        <div class="w-2 h-2 rounded-full bg-black dot"></div>    
                     </div>
                     break;
                 case 5:
                     <div class="flex-1 flex justify-between w-full">
-                        <div class="w-2 h-2 rounded-full bg-black"></div>
-                        <div class="w-2 h-2 rounded-full bg-black"></div>
+                        <div class="w-2 h-2 rounded-full bg-black dot"></div>
+                        <div class="w-2 h-2 rounded-full bg-black dot"></div>
                     </div>
                     <div>
-                        <div class="w-2 h-2 rounded-full bg-black"></div>    
+                        <div class="w-2 h-2 rounded-full bg-black dot"></div>    
                     </div>
                     <div class="flex-1 flex justify-between w-full items-end">
-                        <div class="w-2 h-2 rounded-full bg-black"></div>
-                        <div class="w-2 h-2 rounded-full bg-black"></div>    
+                        <div class="w-2 h-2 rounded-full bg-black dot"></div>
+                        <div class="w-2 h-2 rounded-full bg-black dot"></div>    
                     </div>
                     break;
                 case 6:
                     <div class="flex-1 flex justify-between w-full">
-                        <div class="w-2 h-2 rounded-full bg-black"></div>
-                        <div class="w-2 h-2 rounded-full bg-black"></div>
+                        <div class="w-2 h-2 rounded-full bg-black dot"></div>
+                        <div class="w-2 h-2 rounded-full bg-black dot"></div>
                     </div>
                     <div class="flex-1 flex justify-between w-full items-center">
-                        <div class="w-2 h-2 rounded-full bg-black"></div>
-                        <div class="w-2 h-2 rounded-full bg-black"></div>
+                        <div class="w-2 h-2 rounded-full bg-black dot"></div>
+                        <div class="w-2 h-2 rounded-full bg-black dot"></div>
                     </div>
                     <div class="flex-1 flex justify-between w-full items-end">
-                        <div class="w-2 h-2 rounded-full bg-black"></div>
-                        <div class="w-2 h-2 rounded-full bg-black"></div>    
+                        <div class="w-2 h-2 rounded-full bg-black dot"></div>
+                        <div class="w-2 h-2 rounded-full bg-black dot"></div>    
                     </div>
                     break;
             }

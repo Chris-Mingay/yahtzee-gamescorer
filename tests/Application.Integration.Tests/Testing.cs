@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Infrastructure.Persistence;
@@ -54,6 +55,18 @@ public partial class Testing
 
         await context.SaveChangesAsync();
     }
+    
+    public static async Task AddRangeAsync<TEntity>(IEnumerable<TEntity> entityList)
+        where TEntity : class
+    {
+        using var scope = _scopeFactory.CreateScope();
+
+        var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+
+        context.AddRange(entityList);
+
+        await context.SaveChangesAsync();
+    }
 
     public static async Task<int> CountAsync<TEntity>() where TEntity : class
     {
@@ -62,6 +75,22 @@ public partial class Testing
         var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
         return await context.Set<TEntity>().CountAsync();
+    }
+
+    public static async Task ClearAsync()
+    {
+        using var scope = _scopeFactory.CreateScope();
+
+        var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+
+        var users = await context.Users.ToListAsync();
+        var rounds = await context.Rounds.ToListAsync();
+        
+        if(users.Count > 0) context.Users.RemoveRange(users);
+        if(rounds.Count > 0) context.Rounds.RemoveRange(rounds);
+
+        await context.SaveChangesAsync();
+        
     }
 
     
