@@ -113,14 +113,25 @@ public class Scorer
     /// Play a round using the provided input string
     /// </summary>
     /// <param name="inputString">The round in string format that must honour the requirement of the Parser</param>
-    /// <returns>The score of this round</returns>
+    /// <returns>The parsed round object</returns>
     /// <exception cref="RulesetNotFoundException">Thrown if the the specified ruleset is not known to this GameScorer instance</exception>
-    public int PlayRound(string inputString)
+    public Round PlayRound(string inputString)
+    {
+        var round = ParseRound(inputString);
+        TotalScore += round.Score;
+        return round;
+    }
+
+    /// <summary>
+    /// Parse input data into a round object
+    /// </summary>
+    /// <param name="inputString">The input string</param>
+    /// <returns>The parsed round object</returns>
+    public Round ParseRound(string inputString)
     {
         var round = Parser.Parse(inputString);
         if (!_rulesets.ContainsKey(round.Ruleset)) throw new RulesetNotFoundException($"Ruleset: {round.Ruleset} not found");
-        var score = _rulesets[round.Ruleset].CalculateScore(round.Die);
-        TotalScore += score;
-        return score;
+        round.Score = _rulesets[round.Ruleset].CalculateScore(round.Die);
+        return round;
     }
 }
