@@ -17,6 +17,9 @@ public static class DependencyInjection
                 case "InMemory":
                     services.AddDbContext<ApplicationDbContext, InMemoryApplicationDbContext>();
                     break;
+                case "Sqlite":
+                    services.AddDbContext<ApplicationDbContext, SqliteApplicationDbContext>();
+                    break;
                 default:
                     throw new Exception("Invalid DatabaseProvider specified in appsettings");
             }
